@@ -1,4 +1,4 @@
-# artGallery-backend
+# Spotenu-backend
 Backend
 ### Explicação do projeto
 

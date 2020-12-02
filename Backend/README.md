@@ -38,7 +38,7 @@ Para gerenciar o conteúdo, precisamos acessá-lo. Para isso, haverão caminhos 
 **Criação de Tabelas - MySql**
 
 ```sql
-CREATE TABLE artGalleryUser (
+CREATE TABLE Spotenu_User (
     Id VARCHAR(255) PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
@@ -48,23 +48,23 @@ CREATE TABLE artGalleryUser (
 ```
 
 ```sql
-CREATE TABLE artGalleryImage (
+CREATE TABLE Spotenu_Music (
     Id VARCHAR(255) NOT NULL PRIMARY KEY,
-    Subtitle VARCHAR(255)NOT NULL,
+    Title VARCHAR(255)NOT NULL,
     Author VARCHAR(255)NOT NULL,
     Date VARCHAR(255),
     File VARCHAR(255),
-    Tags VARCHAR(255),
-    Collection VARCHAR(255),
+    Genre VARCHAR(255),
+    Album VARCHAR(255),
 );
 ```
 
 ```sql
-CREATE TABLE artGaleryUserImageRelation (
+CREATE TABLE Spotenu_MusicUserRelation (
     User_id VARCHAR(255),
-    Image_id VARCHAR(255),
-    FOREIGN KEY (User_id) REFERENCES TodoListTask(id),
-    FOREIGN KEY (responsible_user_id) REFERENCES TodoListUser(id)
+    Music_id VARCHAR(255),
+    FOREIGN KEY (User_id) REFERENCES Spotenu_User(id),
+    FOREIGN KEY (responsible_user_id) REFERENCES Spotenu_Music(id)
 );
 ```
 

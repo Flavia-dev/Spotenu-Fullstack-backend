@@ -9,24 +9,24 @@
   - Nickname: "Unique"
   - Password : "Minimo 6 caracteres"
 
-* ## Imagens
-  - Id
-  - Subtitle
-  - Author 
-  - Date
-  - File  
-  - Tags  
-  - Collection  
+* ## Musicas
+	- id
+	- title
+	- author
+	- date
+	- file
+	- genre
+	- album
 
 **Autenticação**
 
 Primeiro, precisamos ter o controle de quem consegue criar e ler os conteúdos que criamos, e para isso, faremos um sistema de autenticação simples. Quem usar a aplicação deve conseguir se cadastrar e fazer login, e apenas após fazer seu login, deve ser capaz de executar as ações criadas abaixo.
 
-**Criação da imagem**
+**Criação da musica**
 
-O sistema vai gerenciar imagens . Então, antes de mais nada, precisamos poder **criar** imagens em nossa aplicação. Para isso, basta que as informações necessárias sejam preenchidas. As imagens devem ser guardadas em um banco de dados.
+O sistema vai gerenciar imagens . Então, antes de mais nada, precisamos poder **criar** musicas em nossa aplicação. Para isso, basta que as informações necessárias sejam preenchidas. As musicas devem ser guardadas em um banco de dados.
 
-**Leitura de imagem**
+**Leitura de mpúsica**
 
 Para gerenciar o conteúdo, precisamos acessá-lo. Para isso, haverão caminhos para a leitura destes. Será necessário ler os conteúdos das seguintes formas:
 
@@ -39,19 +39,19 @@ Para gerenciar o conteúdo, precisamos acessá-lo. Para isso, haverão caminhos 
 
 ```sql
 CREATE TABLE artGalleryUser (
-    Id VARCHAR(255),
-    Name VARCHAR(255),
-    Email VARCHAR(255),
-    Nickname VARCHAR(255),
+    Id VARCHAR(255) PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) UNIQUE NOT NULL,
+    Nickname VARCHAR(255) UNIQUE NOT NULL,
     Password VARCHAR(255),
 );
 ```
 
 ```sql
 CREATE TABLE artGalleryImage (
-    Id VARCHAR(255),
-    Subtitle VARCHAR(255),
-    Author VARCHAR(255),
+    Id VARCHAR(255) NOT NULL PRIMARY KEY,
+    Subtitle VARCHAR(255)NOT NULL,
+    Author VARCHAR(255)NOT NULL,
     Date VARCHAR(255),
     File VARCHAR(255),
     Tags VARCHAR(255),
@@ -61,9 +61,9 @@ CREATE TABLE artGalleryImage (
 
 ```sql
 CREATE TABLE artGaleryUserImageRelation (
-    task_id VARCHAR(255),
-    responsible_user_id VARCHAR(255),
-    FOREIGN KEY (task_id) REFERENCES TodoListTask(id),
+    User_id VARCHAR(255),
+    Image_id VARCHAR(255),
+    FOREIGN KEY (User_id) REFERENCES TodoListTask(id),
     FOREIGN KEY (responsible_user_id) REFERENCES TodoListUser(id)
 );
 ```
@@ -81,19 +81,19 @@ CREATE TABLE artGaleryUserImageRelation (
     - nickname (obrigatório)
     - password (obrigatório)   
  
- * ## Criar Imagem
+ * ## Criar Música
   - Método: POST
-  - Path: "/image"
+  - Path: "/music"
   - Body:
-    - id: " ",
-	- subtitle: " ",
-	- author: " ",
+	- id: string,
+	- title: string,
+	- author: string,
 	- date: Date,
-	- file: " ",
-	- tags: [ ],
-	- collection: " "
+	- file: string,
+	- genre: string[],
+	- album: string
 
- * ## Leitura Imagem
+ * ## Leitura Música
   - Método: GET
-  - Path: "/image/:id"
+  - Path: "/music/:id"
 

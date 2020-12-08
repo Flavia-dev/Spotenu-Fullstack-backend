@@ -3,6 +3,9 @@ import knex from 'knex'
 import dotenv from 'dotenv'
 import createUser from './endpoints/createUser'
 import getUserById from './endpoints/getUserById'
+import createGenre from './endpoints/createGenre'
+import createAlbum from './endpoints/createAlbum'
+
 
 dotenv.config()
 
@@ -21,7 +24,11 @@ const app = express()
 app.use(express.json())
 
 app.post('/SignUp',createUser)
-app.get('/user/profile/:id',getUserById)
+app.post('/createGenre',createGenre)
+app.post('/createAlbum',createAlbum)
+
+
+app.get('/user/:id',getUserById)
 
 app.listen(3003, ()=>{
     console.log('Servidor rodando na porta 3003!')

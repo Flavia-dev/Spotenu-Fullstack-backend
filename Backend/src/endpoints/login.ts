@@ -1,3 +1,4 @@
+import { compare } from "bcryptjs";
 import {Request, Response} from "express";
 import selectUserByEmail, { User } from "../data/selectUserByEmail";
 import { generateToken } from "../services/authenticator";
@@ -27,7 +28,9 @@ export default async function login(
                 throw new Error(message)
             }
 
-            if(user.password !== password){
+            const passwordIsCorrect: boolean = await compare(password, user.password)
+
+            if(!passwordIsCorrect){
                 res.statusCode = 401
                 message = "Usuário não encontrado ou senha incorreta!"
                 throw new Error(message)

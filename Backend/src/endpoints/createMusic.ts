@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import insertMusic from "../data/insertMusic";
+import { generateId } from "../services/idGeneration";
 
 
 export default async function createMusic(req:Request, res:Response){
@@ -20,7 +21,7 @@ export default async function createMusic(req:Request, res:Response){
 
         //consultar banco de dados
 
-        const id: string = Date.now() + Math.random().toString()
+        const id: string = generateId()
         const date:string =Date.now().toString()
 
         await insertMusic(

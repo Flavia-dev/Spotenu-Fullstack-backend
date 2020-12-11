@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import insertAlbum from "../data/insertAlbum";
+import { generateId } from "../services/idGeneration";
 
 
 export default async function createAlbums(
@@ -18,7 +19,8 @@ export default async function createAlbums(
             }
 
         //consultar banco de ddos
-        const id: string = Date.now() + Math.random().toString()
+        // const id: string = Date.now() + Math.random().toString()
+        const id : string = generateId()
 
         await insertAlbum(
             id,

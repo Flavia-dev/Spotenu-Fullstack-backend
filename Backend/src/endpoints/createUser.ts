@@ -1,5 +1,7 @@
 import {Request, Response} from "express";
 import insertUser from "../data/insertUser";
+import { generateToken } from "../services/authenticator";
+import { generateId } from "../services/idGeneration";
 
 
 export default async function createUser(req:Request, res:Response){
@@ -20,7 +22,8 @@ export default async function createUser(req:Request, res:Response){
 
         //consultar banco de dados
 
-        const id: string = Date.now() + Math.random().toString()
+        const id: string = generateId()
+        console.log(id)
 
         await insertUser(
             id,
@@ -33,9 +36,16 @@ export default async function createUser(req:Request, res:Response){
         //validar as saidas do banco
 
         //responder/encerrar a requisição
+
+            
+        const token: string = generateToken({id})
+        console.log(token)
         res
-        .status(200)
-        .send('Usuário criado com sucesso!')
+        .status(201)
+        .send({
+            message:"Usuário criado com sucesso!",
+            token
+        })
 
         
     } catch (error) {

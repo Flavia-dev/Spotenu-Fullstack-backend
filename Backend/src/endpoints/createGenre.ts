@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import insertGenre from "../data/insertGenre";
+import { generateId } from "../services/idGeneration";
 
 
 export default async function createGenre(
@@ -19,7 +20,7 @@ export default async function createGenre(
             }
 
         //consultar banco de ddos
-        const id: string = Date.now() + Math.random().toString()
+        const id: string = generateId()
 
         await insertGenre(
             id,

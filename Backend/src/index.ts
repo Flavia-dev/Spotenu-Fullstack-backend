@@ -5,6 +5,7 @@ import createUser from './endpoints/createUser'
 import getUserById from './endpoints/getUserById'
 import createGenre from './endpoints/createGenre'
 import createAlbum from './endpoints/createAlbum'
+import login from './endpoints/login'
 
 
 dotenv.config()
@@ -24,6 +25,7 @@ const app = express()
 app.use(express.json())
 
 app.post('/SignUp',createUser)
+app.post('/login',login)
 app.post('/createGenre',createGenre)
 app.post('/createAlbum',createAlbum)
 

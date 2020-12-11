@@ -2,25 +2,28 @@ import {Request, Response} from "express";
 import selectUserById from "../data/selectUserById";
 
 
-export default async function getUserById(req:Request, res:Response){
-    try {
+export default async function getUserById(
+    req:Request, 
+    res:Response
+    ){
+        try {
         //consultar banco de ddos
         const user = await selectUserById(req.params.id)
+           
+            if(!user){
+                res.status(404).send({
+                    message: "Usuário não encontrado!"
+                })
 
-        if(!user){
-            res.status(404).send({
-                message: "Usuário não encontrado!"
-            })
+            }
 
-        }
-
-        res.status(200).send({
+        res.status(200).send(
+            {
             message: "Sucesso!",
-            id: user.id,
-            nickname: user.nickname
-
-        })
-        console.log(user.id)
+            id: user.Id,
+            nickname: user.Nickname           
+        }
+        )
 
         //responder/encerrar a requisição
         

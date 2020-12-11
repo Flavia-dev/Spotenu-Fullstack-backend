@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import insertUser from "../data/insertUser";
 import { generateToken } from "../services/authenticator";
+import { hash } from "../services/hashManager";
 import { generateId } from "../services/idGeneration";
 
 
@@ -23,14 +24,18 @@ export default async function createUser(req:Request, res:Response){
         //consultar banco de dados
 
         const id: string = generateId()
-        console.log(id)
+
+        const cypherPassword = await hash(req.body.password);
+
+        
+        
 
         await insertUser(
             id,
             req.body.name,
             req.body.nickname,
             req.body.email,
-            req.body.password
+            cypherPassword
         )
 
         //validar as saidas do banco
